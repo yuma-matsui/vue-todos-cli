@@ -34,3 +34,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  label[for="edited-title"] {
+    vertical-align: middle;
+    margin-right: 3px;
+  }
+</style>

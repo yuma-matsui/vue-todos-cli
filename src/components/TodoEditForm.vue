@@ -4,14 +4,16 @@
       :title="item.title"
       @edit-title="editTitle"
     />
-    <todo-edit-high-priority-input
-      :high-priority="item.highPriority"
-      @edit-high-priority="editHighPriority"
-    />
-    <todo-edit-done-input
-      :done="item.done"
-      @edit-done="editDone"
-    />
+    <div class="edit-form-checkbox">
+      <todo-edit-high-priority-input
+        :high-priority="item.highPriority"
+        @edit-high-priority="editHighPriority"
+      />
+      <todo-edit-done-input
+        :done="item.done"
+        @edit-done="editDone"
+      />
+    </div>
     <button @click="updateItem">更新</button>
   </div>
 </template>
@@ -70,3 +72,20 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .edit-form {
+    display: flex;
+  }
+  .edit-form-checkbox {
+    display: flex;
+    margin-right: 5px;
+  }
+
+  .edit-form button {
+    border: 1px solid black;
+    border-radius: 3px;
+    background-color: transparent;
+    height: 30px;
+  }
+</style>

@@ -92,6 +92,27 @@ export default {
 </script>
 
 <style scoped>
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.todo-items ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-items ul li {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.todo-items ul li p {
+  margin-right: 8px;
+}
   .high-priority {
     color: goldenrod;
     font-weight: bold;
