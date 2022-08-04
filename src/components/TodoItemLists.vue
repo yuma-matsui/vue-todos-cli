@@ -8,17 +8,26 @@
             v-for="(item, index) in todoItems"
             :key="item.id"
           >
-            <p :class="itemStatus(item)">
-              {{ item.title }}
-            </p>
-            <todo-item-edit-button
-              :item="item"
-              @edit-item="editItem"
-            />
-            <todo-item-delete-button
-              :index="index"
-              @delete-item="deleteItem"
-            />
+            <template v-if="item.editable">
+              <todo-edit-form
+                :item="item"
+                :index="index"
+                @update-item="updateItem"
+              />
+            </template>
+            <template v-else>
+              <p :class="itemStatus(item)">
+                {{ item.title }}
+              </p>
+              <todo-item-edit-button
+                :item="item"
+                @edit-item="editItem"
+              />
+              <todo-item-delete-button
+                :index="index"
+                @delete-item="deleteItem"
+              />
+            </template>
           </li>
         </ul>
       </template>
@@ -29,11 +38,13 @@
 <script>
 import TodoItemEditButton from '@/components/TodoItemEditButton'
 import TodoItemDeleteButton from '@/components/TodoItemDeleteButton'
+import TodoEditForm from '@/components/TodoEditForm'
 
 export default {
   components: {
     TodoItemEditButton,
-    TodoItemDeleteButton
+    TodoItemDeleteButton,
+    TodoEditForm
   },
 
   props: {
@@ -43,7 +54,7 @@ export default {
     }
   },
 
-  emits: ['edit-item', 'delete-item'],
+  emits: ['edit-item', 'delete-item', 'update-item'],
 
   computed: {
     existTodoItems () {
@@ -67,6 +78,10 @@ export default {
 
     editItem (item) {
       this.$emit('edit-item', item)
+    },
+
+    updateItem (editedItem) {
+      this.$emit('update-item', editedItem)
     },
 
     deleteItem (index) {
