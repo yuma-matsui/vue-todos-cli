@@ -1,5 +1,8 @@
 <template>
-  <p>{{ item.title }}</p>
+  <div class="main-container">
+    <h2>個別ページ</h2>
+    <p>{{ item.title }}</p>
+  </div>
 </template>
 
 <script>
@@ -34,3 +37,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>
