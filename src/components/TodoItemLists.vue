@@ -16,8 +16,13 @@
               />
             </template>
             <template v-else>
-              <p :class="itemStatus(item)">
-                {{ item.title }}
+              <p>
+                <router-link
+                  :to="todoItemLink(index)"
+                  :class="itemStatus(item)"
+                >
+                  {{ item.title }}
+                </router-link>
               </p>
               <todo-item-edit-button
                 :item="item"
@@ -65,6 +70,12 @@ export default {
       return this.todoItems.length > 0
         ? 'Your todo lists.'
         : 'Add your tasks.'
+    },
+
+    todoItemLink () {
+      return (index) => {
+        return `todos/${index}`
+      }
     }
   },
 
@@ -113,12 +124,17 @@ export default {
 .todo-items ul li p {
   margin-right: 8px;
 }
-  .high-priority {
+  a.high-priority {
     color: goldenrod;
     font-weight: bold;
   }
 
-  .done {
+  a.done {
     text-decoration: line-through;
+  }
+
+  a {
+    color: black;
+    text-decoration: none;
   }
 </style>
