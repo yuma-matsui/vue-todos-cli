@@ -1,22 +1,21 @@
 <template>
-  <button @click="editItem">編集</button>
+  <button @click="editItem(index)">編集</button>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   props: {
-    item: {
-      type: Object,
+    index: {
+      type: Number,
       required: true
     }
   },
 
-  emits: ['edit-item'],
-
   methods: {
-    editItem () {
-      this.$emit('edit-item', this.item)
-    }
+    ...mapActions([
+      'editItem'
+    ])
   }
 }
 </script>

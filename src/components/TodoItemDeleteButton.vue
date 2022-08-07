@@ -1,8 +1,9 @@
 <template>
-  <button @click="deleteItem">削除</button>
+  <button @click="deleteItem(index)">削除</button>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   props: {
     index: {
@@ -11,12 +12,10 @@ export default {
     }
   },
 
-  emits: ['delete-item'],
-
   methods: {
-    deleteItem () {
-      this.$emit('delete-item', this.index)
-    }
+    ...mapActions([
+      'deleteItem'
+    ])
   }
 }
 </script>

@@ -41,11 +41,9 @@ export default {
     }
   },
 
-  emits: ['add-todo-item'],
-
   methods: {
     addTodoItem () {
-      this.$emit('add-todo-item', { ...this.newTodoItem })
+      this.$store.dispatch('addTodoItem', { ...this.newTodoItem })
       this.resetItem()
     },
 
