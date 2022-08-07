@@ -1,11 +1,13 @@
 <template>
   <div class="main-container">
     <h2>個別ページ</h2>
-    <p>{{ item.title }}</p>
+    <p>{{ todoItem(Number(index)).title }}</p>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     index: {
@@ -14,26 +16,10 @@ export default {
     }
   },
 
-  data () {
-    return {
-      todoItems: []
-    }
-  },
-
-  created () {
-    const todoItems = JSON.parse(localStorage.getItem('todoItems'))
-    this.todoItems = todoItems || []
-  },
-
   computed: {
-    indexNum () {
-      return Number(this.index)
-    },
-
-    item () {
-      const index = Number(this.index)
-      return this.todoItems[index]
-    }
+    ...mapGetters([
+      'todoItem'
+    ])
   }
 }
 </script>

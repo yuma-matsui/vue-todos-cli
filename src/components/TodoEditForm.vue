@@ -47,15 +47,12 @@ export default {
     }
   },
 
-  emits: ['update-item'],
-
   methods: {
     updateItem () {
-      const editedItem = {
+      this.$store.dispatch('updateItem', {
         index: this.index,
-        item: this.editedItem
-      }
-      this.$emit('update-item', editedItem)
+        editedItem: this.editedItem
+      })
     },
 
     editTitle (editedTitle) {

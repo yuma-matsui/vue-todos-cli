@@ -12,7 +12,6 @@
               <todo-edit-form
                 :item="item"
                 :index="index"
-                @update-item="updateItem"
               />
             </template>
             <template v-else>
@@ -25,12 +24,10 @@
                 </router-link>
               </p>
               <todo-item-edit-button
-                :item="item"
-                @edit-item="editItem"
+                :index="index"
               />
               <todo-item-delete-button
                 :index="index"
-                @delete-item="deleteItem"
               />
             </template>
           </li>
@@ -44,6 +41,7 @@
 import TodoItemEditButton from '@/components/TodoItemEditButton'
 import TodoItemDeleteButton from '@/components/TodoItemDeleteButton'
 import TodoEditForm from '@/components/TodoEditForm'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -52,31 +50,21 @@ export default {
     TodoEditForm
   },
 
-  props: {
-    todoItems: {
-      type: Array,
-      required: true
-    }
-  },
-
-  emits: ['edit-item', 'delete-item', 'update-item'],
-
   computed: {
-    existTodoItems () {
-      return this.todoItems.length > 0
-    },
-
-    mainTitle () {
-      return this.todoItems.length > 0
-        ? 'Your todo lists.'
-        : 'Add your tasks.'
+    todoItems () {
+      return this.$store.state.todoItems
     },
 
     todoItemLink () {
       return (index) => {
         return `todos/${index}`
       }
-    }
+    },
+
+    ...mapGetters([
+      'existTodoItems',
+      'mainTitle'
+    ])
   },
 
   methods: {
@@ -85,18 +73,6 @@ export default {
         'high-priority': item.highPriority,
         done: item.done
       }
-    },
-
-    editItem (item) {
-      this.$emit('edit-item', item)
-    },
-
-    updateItem (editedItem) {
-      this.$emit('update-item', editedItem)
-    },
-
-    deleteItem (index) {
-      this.$emit('delete-item', index)
     }
   }
 }
